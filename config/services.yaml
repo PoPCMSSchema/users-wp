@@ -1,0 +1,4 @@
+services:
+    user_type_api:
+        class: \PoP\UsersWP\TypeAPIs\UserTypeAPI
+        public: true
