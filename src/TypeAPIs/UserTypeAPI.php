@@ -6,6 +6,7 @@ namespace PoP\UsersWP\TypeAPIs;
 
 use WP_User;
 use PoP\Users\TypeAPIs\UserTypeAPIInterface;
+
 /**
  * Methods to interact with the Type, to be implemented by the underlying CMS
  */
