@@ -20,12 +20,13 @@ Via Composer
 composer require getpop/users-wp
 ```
 
-<!--
 ## Usage
 
+Initialize the component:
+
 ``` php
+\PoP\UsersWP\Component::initialize();
 ```
--->
 
 ## Standards
 
