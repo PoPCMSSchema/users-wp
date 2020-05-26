@@ -25,7 +25,9 @@ composer require getpop/users-wp
 Initialize the component:
 
 ``` php
-\PoP\UsersWP\Component::initialize();
+\PoP\Root\ComponentLoader::initializeComponents([
+    \PoP\UsersWP\Component::class,
+]);
 ```
 
 ## Standards
