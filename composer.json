@@ -24,8 +24,12 @@
         "getpop/migrate-users-wp": "dev-master"
     },
     "require-dev": {
+        "getpop/customposts-wp": "dev-master",
         "phpunit/phpunit": ">=7.0",
         "squizlabs/php_codesniffer": "^3.0"
+    },
+    "suggest": {
+        "getpop/customposts-wp": "Integrates well with Custom Posts for WordPress"
     },
     "autoload": {
         "psr-4": {

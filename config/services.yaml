@@ -2,3 +2,7 @@ services:
     user_type_api:
         class: \PoP\UsersWP\TypeAPIs\UserTypeAPI
         public: true
+
+    custompost_user_type_api:
+        class: \PoP\UsersWP\Conditional\CustomPosts\TypeAPIs\CustomPostUserTypeAPI
+        public: true
