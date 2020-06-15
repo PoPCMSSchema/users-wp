@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PoP\UsersWP\Conditional\CustomPosts\TypeAPIs;
 
-use PoP\CustomPostsWP\TypeAPIs\PostTypeAPIHelpers;
+use PoP\CustomPostsWP\TypeAPIs\CustomPostTypeAPIHelpers;
 use PoP\Users\Conditional\CustomPosts\TypeAPIs\CustomPostUserTypeAPIInterface;
 
 /**
@@ -17,7 +17,7 @@ class CustomPostUserTypeAPI implements CustomPostUserTypeAPIInterface
         list(
             $post,
             $postID,
-        ) = PostTypeAPIHelpers::getCustomPostObjectAndID($postObjectOrID);
+        ) = CustomPostTypeAPIHelpers::getCustomPostObjectAndID($postObjectOrID);
         return $post->post_author;
     }
 }
