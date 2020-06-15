@@ -17,7 +17,7 @@ class CustomPostUserTypeAPI implements CustomPostUserTypeAPIInterface
         list(
             $post,
             $postID,
-        ) = PostTypeAPIHelpers::getPostObjectAndID($postObjectOrID);
+        ) = PostTypeAPIHelpers::getCustomPostObjectAndID($postObjectOrID);
         return $post->post_author;
     }
 }
