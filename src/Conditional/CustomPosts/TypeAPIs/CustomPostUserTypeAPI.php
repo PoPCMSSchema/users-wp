@@ -12,12 +12,12 @@ use PoP\Users\Conditional\CustomPosts\TypeAPIs\CustomPostUserTypeAPIInterface;
  */
 class CustomPostUserTypeAPI implements CustomPostUserTypeAPIInterface
 {
-    public function getAuthorID($postObjectOrID)
+    public function getAuthorID($customPostObjectOrID)
     {
         list(
-            $post,
-            $postID,
-        ) = CustomPostTypeAPIHelpers::getCustomPostObjectAndID($postObjectOrID);
-        return $post->post_author;
+            $customPost,
+            $customPostID,
+        ) = CustomPostTypeAPIHelpers::getCustomPostObjectAndID($customPostObjectOrID);
+        return $customPost->post_author;
     }
 }
