@@ -1,8 +1,8 @@
 services:
     user_type_api:
-        class: \PoP\UsersWP\TypeAPIs\UserTypeAPI
+        class: \PoPSchema\UsersWP\TypeAPIs\UserTypeAPI
         public: true
 
     custompost_user_type_api:
-        class: \PoP\UsersWP\Conditional\CustomPosts\TypeAPIs\CustomPostUserTypeAPI
+        class: \PoPSchema\UsersWP\Conditional\CustomPosts\TypeAPIs\CustomPostUserTypeAPI
         public: true

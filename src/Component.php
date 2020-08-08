@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PoP\UsersWP;
+namespace PoPSchema\UsersWP;
 
 use PoP\Root\Component\AbstractComponent;
 use PoP\Root\Component\YAMLServicesTrait;
@@ -18,8 +18,8 @@ class Component extends AbstractComponent
     public static function getDependedComponentClasses(): array
     {
         return [
-            \PoP\Users\Component::class,
-            \PoP\QueriedObjectWP\Component::class,
+            \PoPSchema\Users\Component::class,
+            \PoPSchema\QueriedObjectWP\Component::class,
         ];
     }
 
@@ -31,7 +31,7 @@ class Component extends AbstractComponent
     public static function getDependedConditionalComponentClasses(): array
     {
         return [
-            \PoP\CustomPostsWP\Component::class,
+            \PoPSchema\CustomPostsWP\Component::class,
         ];
     }
 
