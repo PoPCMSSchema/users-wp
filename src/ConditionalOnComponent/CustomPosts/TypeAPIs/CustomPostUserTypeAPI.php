@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace PoPSchema\UsersWP\Conditional\CustomPosts\TypeAPIs;
+namespace PoPSchema\UsersWP\ConditionalOnComponent\CustomPosts\TypeAPIs;
 
 use PoPSchema\CustomPostsWP\TypeAPIs\CustomPostTypeAPIHelpers;
-use PoPSchema\Users\Conditional\CustomPosts\TypeAPIs\CustomPostUserTypeAPIInterface;
+use PoPSchema\Users\ConditionalOnComponent\CustomPosts\TypeAPIs\CustomPostUserTypeAPIInterface;
 
 /**
  * Methods to interact with the Type, to be implemented by the underlying CMS
