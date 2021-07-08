@@ -20,10 +20,10 @@ class UserTypeAPI implements UserTypeAPIInterface
 {
     use InjectedFilterDataloadingModuleTypeDataResolverTrait;
 
-    function __construct(
+    public function __construct(
         protected HooksAPIInterface $hooksAPI,
         protected QueriedObjectHelperServiceInterface $queriedObjectHelperService,
-    ) {        
+    ) {
     }
 
     /**
@@ -57,7 +57,7 @@ class UserTypeAPI implements UserTypeAPIInterface
     {
         return $this->getUserBy('login', $login);
     }
-    
+
     public function getUserCount(array $query = [], array $options = []): int
     {
         // Convert the parameters
@@ -129,8 +129,7 @@ class UserTypeAPI implements UserTypeAPIInterface
      * 3. Execute query
      * 4. Remove hook
      *
-     * @param array $query
-     * @return void
+     * @param mixed[] $query
      */
     protected function filterByEmails(array &$query): bool
     {
@@ -224,13 +223,53 @@ class UserTypeAPI implements UserTypeAPIInterface
                 // Replace the query
                 $emails = explode(',', $search);
                 $searches = [sprintf("user_email IN (%s)", "'" . implode("','", $emails) . "'")];
-                $replace = $query->get_search_sql($search, ['user_email'], false);
+                $replace = $this->get_search_sql($search, ['user_email'], false);
                 $replacement = ' AND (' . implode(' OR ', $searches) . ')';
                 $query->query_where = str_replace($replace, $replacement, $query->query_where);
             }
         }
     }
-    
+
+	/**
+     * Function copied from WordPress source, because it is protected!
+     * 
+     * @source wp-includes/class-wp-user-query.php
+     * 
+	 * Used internally to generate an SQL string for searching across multiple columns
+	 *
+	 * @since 3.1.0
+	 *
+	 * @global wpdb $wpdb WordPress database abstraction object.
+	 *
+	 * @param string $string
+	 * @param array  $cols
+	 * @param bool   $wild   Whether to allow wildcard searches. Default is false for Network Admin, true for single site.
+	 *                       Single site allows leading and trailing wildcards, Network Admin only trailing.
+	 * @return string
+	 */
+	protected function get_search_sql( $string, $cols, $wild = false ) {
+		global $wpdb;
+
+		$searches      = array();
+        // Avoid PHPStan errors:
+        //   Result of || is always false
+		// $leading_wild  = ( 'leading' === $wild || 'both' === $wild ) ? '%' : '';
+		// $trailing_wild = ( 'trailing' === $wild || 'both' === $wild ) ? '%' : '';
+		$leading_wild  = '';
+		$trailing_wild = '';
+		$like          = $leading_wild . $wpdb->esc_like( $string ) . $trailing_wild;
+
+		foreach ( $cols as $col ) {
+			if ( 'ID' === $col ) {
+				$searches[] = $wpdb->prepare( "$col = %s", $string );
+			} else {
+				$searches[] = $wpdb->prepare( "$col LIKE %s", $like );
+			}
+		}
+
+		return ' AND (' . implode( ' OR ', $searches ) . ')';
+	}
+
     protected function getUserProperty(string $property, string | int | object $userObjectOrID): ?string
     {
         if (is_object($userObjectOrID)) {
