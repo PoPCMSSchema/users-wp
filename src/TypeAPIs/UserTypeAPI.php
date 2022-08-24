@@ -57,7 +57,11 @@ class UserTypeAPI extends AbstractUserTypeAPI
         return $this->getUserBy('login', $login);
     }
 
-    public function getUserCount(array $query = [], array $options = []): int
+    /**
+     * @param array<string,mixed> $query
+     * @param array<string,mixed> $options
+     */
+    public function getUserCount(array $query, array $options = []): int
     {
         // Convert the parameters
         $options[QueryOptions::RETURN_TYPE] = ReturnTypes::IDS;
@@ -93,7 +97,12 @@ class UserTypeAPI extends AbstractUserTypeAPI
         }
         return $ret;
     }
-    public function getUsers(array $query = [], array $options = []): array
+    /**
+     * @return array<string|int>|object[]
+     * @param array<string,mixed> $query
+     * @param array<string,mixed> $options
+     */
+    public function getUsers(array $query, array $options = []): array
     {
         // Convert the parameters
         $query = $this->convertUsersQuery($query, $options);
@@ -129,7 +138,7 @@ class UserTypeAPI extends AbstractUserTypeAPI
      * 3. Execute query
      * 4. Remove hook
      *
-     * @param mixed[] $query
+     * @param array<string,mixed> $query
      *
      * @see https://developer.wordpress.org/reference/classes/wp_user_query/#search-parameters
      */
@@ -148,6 +157,11 @@ class UserTypeAPI extends AbstractUserTypeAPI
         return false;
     }
 
+    /**
+     * @return array<string,mixed>
+     * @param array<string,mixed> $query
+     * @param array<string,mixed> $options
+     */
     protected function convertUsersQuery(array $query, array $options = []): array
     {
         if (($options[QueryOptions::RETURN_TYPE] ?? null) === ReturnTypes::IDS) {
@@ -296,7 +310,7 @@ class UserTypeAPI extends AbstractUserTypeAPI
             $user = $userObjectOrID;
         } else {
             $userID = $userObjectOrID;
-            $user = get_userdata($userID);
+            $user = get_userdata((int)$userID);
             if ($user === false) {
                 return null;
             }
@@ -337,6 +351,7 @@ class UserTypeAPI extends AbstractUserTypeAPI
     }
     public function getUserID(object $user): string|int
     {
+        /** @var WP_User $user */
         return $user->ID;
     }
 
@@ -347,7 +362,7 @@ class UserTypeAPI extends AbstractUserTypeAPI
             $user = $userObjectOrID;
             $userID = $user->ID;
         } else {
-            $userID = $userObjectOrID;
+            $userID = (int)$userObjectOrID;
         }
         return get_author_posts_url($userID);
     }
